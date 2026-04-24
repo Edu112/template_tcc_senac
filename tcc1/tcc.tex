@@ -63,11 +63,11 @@
 % ---------------------------------------------------------------
 % INFORMAÇÕES DO DOCUMENTO
 % ---------------------------------------------------------------
-\titulo{Título do Trabalho de Conclusão de Curso}
-\autor{Nome Completo do Aluno}
+\titulo{Comparação entre Análise Sintática Determinística e Classificação por Machine Learning para Detecção de SQL Injection}
+\autor{Eduardo Dias Santos}
 \local{São Paulo}
-\data{2025}
-\orientador{Prof. Nome do Orientador}
+\data{2026}
+\orientador{Prof. ?}
 % \coorientador{Prof. Nome do Coorientador} % Descomente se houver coorientador
 
 \instituicao{%
@@ -75,12 +75,12 @@
   \par
   Unidade Santo Amaro
   \par
-  Curso de [Nome do Curso]
+  Curso de Ciências da Computação
 }
 
 \tipotrabalho{Trabalho de Conclusão de Curso I}
 
-\preambulo{Proposta de Trabalho de Conclusão de Curso apresentado ao SENAC Santo Amaro como requisito parcial para aprovação na disciplina de TCC1 do curso de [Nome do Curso].}
+\preambulo{Proposta de Trabalho de Conclusão de Curso apresentado ao SENAC Santo Amaro como requisito parcial para aprovação na disciplina de TCC1 do curso de Ciências da Computação.}
 
 % ---------------------------------------------------------------
 % COMPILA O ÍNDICE
@@ -157,91 +157,40 @@ Este documento apresenta a proposta inicial do Trabalho de Conclusão de Curso (
 \chapter{Introdução}
 \label{cap:introducao}
 
-A introdução deve apresentar o tema do trabalho de forma clara e objetiva, situando o leitor no contexto da pesquisa. Neste capítulo, são apresentados o contexto no qual o problema se insere, a justificativa para a realização do estudo e os objetivos que norteiam o desenvolvimento do trabalho.
-
-% ---------------------------------------------------------------
 \section{Contexto}
 \label{sec:contexto}
 
-Apresente o cenário que originou o problema, ressaltando fatos, indicadores e lacunas identificadas na área de estudo. O contexto deve situar o leitor sobre o estado atual do tema, mostrando a relevância do assunto para a Computação e para a sociedade.
+Os ataques cibernéticos representam um dos principais desafios da atualidade, afetando sistemas e usuários em escala global. Nesse cenário, invasores exploram vulnerabilidades presentes em aplicações com o objetivo de comprometer seu funcionamento e obter acesso não autorizado a dados sensíveis. Como consequência, tanto os responsáveis pelos sistemas quanto seus usuários podem ser prejudicados, seja pela indisponibilidade do serviço ou pelo vazamento de informações. 
 
-Descreva o ambiente ou domínio em que o problema ocorre, utilizando dados e referências que comprovem a existência do problema. Explique quem são os principais afetados e quais são as consequências de não resolvê-lo.
-
-\vspace{0.3cm}
-\noindent\fbox{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
-\textbf{Orientação sobre citações (ABNT NBR 10520:2023)}
-
-\vspace{0.2cm}
-O aluno deve \textbf{priorizar citações indiretas} (paráfrases), nas quais a ideia do autor é reescrita com as próprias palavras. Citações diretas (transcrições literais) \textbf{não são recomendadas}, exceto quando o texto original for insubstituível --- por exemplo, definições consagradas, leis, normas técnicas ou trechos cuja reformulação alteraria o sentido.
-
-\vspace{0.2cm}
-\textbf{Citação indireta} (recomendada) --- o autor interpreta e reescreve a ideia:
-
-\vspace{0.1cm}
-\textit{Exemplo 1 --- sistema autor-data entre parênteses:}\\
-A definição clara do problema é considerada um fator determinante para o sucesso de qualquer pesquisa na área de Computação \cite{Wazlawick2020}.
-
-\vspace{0.1cm}
-\textit{Exemplo 2 --- autor como parte do texto:}\\
-Para \citeonline{Pressman2016}, a escolha de uma metodologia adequada impacta diretamente na qualidade dos resultados obtidos em projetos de software.
-
-\vspace{0.2cm}
-\textbf{Citação direta curta} (até 3 linhas, apenas quando indispensável) --- entre aspas, com indicação de página:
-
-\vspace{0.1cm}
-Segundo \citeonline[p.~42]{Wazlawick2020}, ``a formulação do problema deve ser expressa de forma clara, objetiva e delimitada, evitando ambiguidades que possam comprometer o escopo da pesquisa''.
-
-\vspace{0.2cm}
-\textbf{Citação direta longa} (mais de 3 linhas, apenas quando indispensável) --- recuo de 4\,cm, fonte menor, sem aspas:
-
-\begin{citacao}
-A revisão bibliográfica não consiste em simplesmente listar os trabalhos encontrados, mas em analisá-los criticamente, identificando convergências, divergências e lacunas que justifiquem a realização de uma nova pesquisa \cite[p.~87]{Wazlawick2020}.
-\end{citacao}
-
-\textbf{Resumo}: use citações indiretas como regra. Reserve a citação direta para casos excepcionais em que a transcrição literal seja realmente necessária.
-}}
-
+Entre as diversas ameaças existentes, os ataques por injeção destacam-se por sua relevância e recorrência. Essas vulnerabilidades estão listadas no Top 10 da OWASP, sendo a SQL Injection (SQLi) considerada uma das mais críticas, devido ao seu potencial de exploração e impacto nos sistemas afetados. \cite{OWASP2025} 
 % ---------------------------------------------------------------
 \section{Justificativa}
 \label{sec:justificativa}
 
-Explicite por que resolver esse problema é importante. A justificativa deve abordar:
+Diante desse contexto, torna-se essencial o desenvolvimento de mecanismos eficazes para a detecção de ataques por injeção, especialmente SQLi, antes que o invasor consiga comprometer o sistema. Com o avanço das técnicas de Inteligência Artificial, surge a oportunidade de investigar se abordagens baseadas em aprendizado de máquina podem oferecer vantagens em relação a métodos tradicionais.
 
-\begin{itemize}
-    \item \textbf{Relevância acadêmica}: como este trabalho contribui para o avanço do conhecimento na área;
-    \item \textbf{Relevância prática/profissional}: quais benefícios práticos a solução trará para usuários, organizações ou a sociedade;
-    \item \textbf{Lacuna identificada}: o que ainda não foi resolvido ou explorado suficientemente pelos trabalhos existentes.
-\end{itemize}
-
-Mostre que o trabalho não é apenas um texto sobre um tema popular, mas sim uma proposta que visa preencher uma lacuna real e contribuir de forma significativa para a área.
-
+Assim, este trabalho propõe a comparação entre duas abordagens de detecção de SQL Injection: um modelo determinístico, baseado em regras, e um modelo probabilístico, fundamentado em técnicas de aprendizado de máquina. A partir dessa análise, busca-se identificar as vantagens e limitações de cada abordagem, contribuindo para que desenvolvedores e responsáveis por sistemas possam escolher a solução mais adequada às suas necessidades. 
 % ---------------------------------------------------------------
 \section{Objetivo}
 \label{sec:objetivo}
 
-Os objetivos definem o que o trabalho pretende alcançar. Devem ser claros, mensuráveis e diretamente relacionados ao problema identificado.
+Desenvolver um detector de SQL Injection baseado na análise de Árvore Sintática Abstrata e comparar o desempenho de duas abordagens de detecção: um analisador determinístico e um analisador probabilístico, por meio de avaliação experimental. 
 
 \subsection{Objetivo principal}
 
-O objetivo principal deve ser \textbf{único} e sintetizar o propósito central do trabalho em uma frase direta. Ele deve responder à pergunta: \textit{o que este trabalho pretende resolver ou alcançar?}
-
-Exemplo: \textit{Desenvolver um sistema web para gerenciamento de tarefas acadêmicas que permita aos estudantes organizar suas atividades de forma colaborativa.}
-
-\textbf{Dica}: utilize verbos no infinitivo como \textit{desenvolver}, \textit{analisar}, \textit{propor}, \textit{avaliar}, \textit{implementar}, \textit{comparar}, entre outros. Evite verbos vagos como \textit{estudar} ou \textit{entender}.
+Comparar abordagens determinísticas e probabilísticas na detecção de SQL Injection, com base na análise de Árvores Sintáticas Abstratas (AST), por meio de avaliação experimental. 
 
 \subsection{Objetivos secundários}
 
 Os objetivos secundários são desdobramentos do objetivo principal. Eles descrevem as etapas ou ações necessárias para atingir o objetivo principal. Devem ser mensuráveis e verificáveis.
 
-\begin{enumerate}
-    \item Realizar levantamento bibliográfico sobre [tema específico];
-    \item Identificar e analisar os requisitos do sistema/solução proposta;
-    \item Projetar a arquitetura da solução com base nos requisitos levantados;
-    \item Implementar um protótipo funcional da solução proposta;
-    \item Validar a solução por meio de [testes, métricas, estudo de caso, etc.].
-\end{enumerate}
+\begin{itemize}
+    \item Implementar um analisador sintático capaz de gerar a Árvore Sintática Abstrata (AST) a partir de consultas SQL.  
+    \item Desenvolver um analisador determinístico baseado em regras estruturais da AST para identificar padrões de SQL Injection.  
+    \item Extrair características estruturais da AST e utilizá-las no treinamento de um modelo de aprendizado de máquina para detecção de consultas maliciosas.  
+    \item Realizar uma avaliação experimental comparando o desempenho do analisador determinístico e do modelo probabilístico.  
+\end{itemize}
 
-\textbf{Atenção}: cada objetivo secundário deve contribuir diretamente para o alcance do objetivo principal. Evite listar objetivos que não tenham relação clara com o problema.
 
 % ===============================================================
 % CAPÍTULO 2 - REVISÃO BIBLIOGRÁFICA
