@@ -35,6 +35,8 @@
 \usepackage{pgfgantt}               % Diagramas de Gantt
 \usepackage[brazilian,hyperpageref]{backref}  % Páginas com citações
 \usepackage[alf]{abntex2cite}       % Citações ABNT
+\usepackage{listings}
+\usepackage{xcolor}
 
 % ---------------------------------------------------------------
 % CONFIGURAÇÕES DO PDF
@@ -59,6 +61,19 @@
 % CONFIGURAÇÕES DE APARÊNCIA DO PDF FINAL
 % ---------------------------------------------------------------
 \definecolor{blue}{RGB}{41,5,195}
+
+% ---------------------------------------------------------------
+% CONFIGURAÇÃO DO LISTINGS
+% ---------------------------------------------------------------
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false
+}
 
 % ---------------------------------------------------------------
 % INFORMAÇÕES DO DOCUMENTO
@@ -122,7 +137,7 @@ Este documento apresenta a proposta inicial do Trabalho de Conclusão de Curso (
 \vspace{\onelineskip}
 
 \noindent
-\textbf{Palavras-chave}: palavra1. palavra2. palavra3. palavra4. palavra5.
+\textbf{Palavras-chave}: SQL Injection. Machine Learning. Árvore Sintática Abstrata. Análise Sintática Determinística. Segurança Web.
 \end{resumo}
 
 % ---------------------------------------------------------------
@@ -170,6 +185,8 @@ Entre as diversas ameaças existentes, os ataques por injeção destacam-se por 
 Diante desse contexto, torna-se essencial o desenvolvimento de mecanismos eficazes para a detecção de ataques por injeção, especialmente SQLi, antes que o invasor consiga comprometer o sistema. Com o avanço das técnicas de Inteligência Artificial, surge a oportunidade de investigar se abordagens baseadas em aprendizado de máquina podem oferecer vantagens em relação a métodos tradicionais.
 
 Assim, este trabalho propõe a comparação entre duas abordagens de detecção de SQL Injection: um modelo determinístico, baseado em regras, e um modelo probabilístico, fundamentado em técnicas de aprendizado de máquina. A partir dessa análise, busca-se identificar as vantagens e limitações de cada abordagem, contribuindo para que desenvolvedores e responsáveis por sistemas possam escolher a solução mais adequada às suas necessidades. 
+
+Além disso, durante o levantamento bibliográfico, observou-se que muitos trabalhos concentram-se no desenvolvimento de técnicas específicas de detecção, porém há uma quantidade reduzida de estudos voltados à comparação direta entre abordagens determinísticas e modelos baseados em aprendizado de máquina. Dessa forma, identifica-se uma lacuna na literatura quanto à análise comparativa dessas técnicas, especialmente em relação à precisão, desempenho e aplicabilidade em diferentes cenários. Assim, este trabalho busca contribuir para a área ao realizar uma avaliação comparativa entre esses métodos de detecção de SQL Injection.
 % ---------------------------------------------------------------
 \section{Objetivo}
 \label{sec:objetivo}
@@ -215,7 +232,7 @@ Utilize citações para fundamentar cada conceito apresentado. Segundo \citeonli
 \begin{itemize}
     \item \textbf{Segurança de Aplicações Web }
     \item \textbf{SQL Injection (SQLi) }
-    \item \textbf{Técnicas de detecção de SQL Injection }: 
+    \item \textbf{Técnicas de detecção de SQL Injection }
     \item \textbf{Análise Sintática e AST (Árvore Sintática Abstrata) }
     \item \textbf{Aprendizado de Máquina na Segurança  }
     \item \textbf{Comparação entre abordagens determinísticas e probabilísticas}
@@ -225,18 +242,22 @@ Utilize citações para fundamentar cada conceito apresentado. Segundo \citeonli
 \section{Metodologia da pesquisa bibliográfica}
 \label{sec:metodologia_pesquisa}
 
-Descreva como a pesquisa bibliográfica foi conduzida, incluindo:
+A pesquisa bibliográfica foi realizada nas bases Google Scholar e IEEE Xplore, utilizando como string principal de busca:
 
-\begin{itemize}
-    \item \textbf{Bases de dados consultadas}: Google Scholar, IEEE Xplore, ACM Digital Library, SciELO, Periódicos CAPES, entre outras;
-    \item \textbf{Palavras-chave utilizadas}: liste os termos de busca em português e inglês;
-    \item \textbf{Critérios de inclusão e exclusão}: quais critérios foram usados para selecionar ou descartar trabalhos (período, idioma, relevância, tipo de publicação);
-    \item \textbf{Período de abrangência}: intervalo de anos das publicações consultadas.
-\end{itemize}
+\begin{lstlisting}
+("SQL Injection" OR SQLi) AND ("Machine Learning" OR "Deep Learning") AND   
+("Syntax Analysis" OR Parsing OR AST)
+\end{lstlisting}
 
-Exemplo de descrição:
+Além disso, foram utilizadas strings secundárias, como:
 
-\textit{A pesquisa bibliográfica foi realizada nas bases Google Scholar, IEEE Xplore e ACM Digital Library, utilizando as palavras-chave ``machine learning'', ``classificação de texto'' e ``processamento de linguagem natural''. Foram selecionados artigos publicados entre 2018 e 2025, em português e inglês, que abordassem diretamente técnicas de classificação automática de documentos.}
+\begin{lstlisting}
+("SQL Injection Detection") AND ("Machine Learning") AND ("Deterministic Parsing" OR "Syntax-based Detection")
+\end{lstlisting}
+
+Foram selecionados artigos publicados entre 2021 e 2026, nos idiomas português e inglês, relacionados à detecção de ataques SQL Injection utilizando técnicas de Machine Learning, análise sintática, parsing e Árvores Sintáticas Abstratas (AST).
+
+Durante o processo de seleção, foram excluídos trabalhos cujos títulos apresentavam baixa correlação com o tema proposto. Em seguida, foi realizada a leitura dos resumos para avaliar a relevância dos estudos em relação aos objetivos da pesquisa. Também foram descartados artigos que não abordavam técnicas relacionadas a AST, análise sintática ou métodos de detecção compatíveis com a proposta deste trabalho.
 
 % ---------------------------------------------------------------
 \section{Fundamentos}
@@ -279,13 +300,13 @@ Para cada trabalho relacionado, descreva:
 
 \citeonline{Silva2022} abordou o problema de [descrever o problema --- deve ser o mesmo ou muito similar ao seu]. Para resolvê-lo, os autores propuseram [descrever a solução]. A metodologia utilizada foi [descrever]. Os resultados mostraram que [descrever]. No entanto, a solução apresenta limitações como [descrever as lacunas que permanecem]. O presente trabalho diferencia-se por [explicar como sua proposta avança na resolução do mesmo problema].
 
-\subsection{Trabalho 2: [Título do trabalho]}
+\subsection{Trabalho 2: Trident: Detecting SQL Injection Attacks via Abstract Syntax Tree-based Neural Network}
 
-[Descrever o segundo trabalho seguindo a mesma estrutura acima, sempre evidenciando que o problema abordado é o mesmo ou muito próximo ao seu.]
+\citeonline{li2024trident} abordaram o problema da detecção de ataques SQL Injection em aplicações web, especialmente as dificuldades encontradas por métodos tradicionais ao identificar ataques ofuscados ou estruturalmente complexos. Para resolver esse problema, os autores propuseram o Trident, uma abordagem baseada em Árvores Sintáticas Abstratas (AST) e redes neurais para análise estrutural de consultas SQL. A metodologia utilizada consistiu na transformação das consultas SQL em ASTs por meio de parsing sintático, permitindo que uma rede neural aprendesse padrões estruturais das consultas maliciosas e benignas. Os resultados mostraram que a utilização de informações sintáticas e hierárquicas das consultas SQL melhorou significativamente a capacidade de detecção quando comparada a abordagens puramente textuais. No entanto, a solução apresenta limitações como a dependência de modelos de aprendizado profundo e maior complexidade computacional durante o processamento e treinamento das redes neurais. O presente trabalho diferencia-se por investigar e comparar abordagens baseadas em análise sintática determinística e técnicas de Machine Learning, buscando avaliar não apenas a acurácia, mas também aspectos relacionados à interpretabilidade, complexidade e eficiência computacional na detecção de SQL Injection.
 
-\subsection{Trabalho 3: [Título do trabalho]}
+\subsection{Trabalho 3: A Hybrid Approach for Detecting SQL-Injection Using Machine Learning Techniques}
 
-[Descrever o terceiro trabalho seguindo a mesma estrutura acima, sempre evidenciando que o problema abordado é o mesmo ou muito próximo ao seu.]
+\citeonline{abdullah2025hybrid} abordaram o problema da detecção de ataques SQL Injection em aplicações web, especialmente a dificuldade de identificar ataques desconhecidos e reduzir falsos positivos em sistemas tradicionais de detecção. Para resolver esse problema, os autores propuseram uma abordagem híbrida baseada em técnicas de Machine Learning, combinando algoritmos como Naive Bayes, LSTM e Random Forest para classificação de consultas SQL maliciosas e benignas. A metodologia utilizada consistiu na extração de características textuais das consultas SQL utilizando TF-IDF, seguida pelo treinamento e combinação dos modelos de aprendizado de máquina para melhorar a capacidade de detecção. Os resultados mostraram que o modelo híbrido alcançou elevada taxa de acurácia, superando modelos individuais e apresentando melhor desempenho na identificação de ataques SQL Injection, incluindo padrões desconhecidos. No entanto, a solução apresenta limitações como a dependência de grandes volumes de dados para treinamento, menor interpretabilidade dos modelos e ausência de análise estrutural detalhada das consultas SQL. O presente trabalho diferencia-se por investigar e comparar abordagens baseadas em análise sintática determinística e Árvores Sintáticas Abstratas (AST) com técnicas de Machine Learning, buscando analisar não apenas a precisão da detecção, mas também aspectos relacionados à interpretabilidade, complexidade computacional e análise estrutural das consultas SQL.
 
 \vspace{0.5cm}
 
